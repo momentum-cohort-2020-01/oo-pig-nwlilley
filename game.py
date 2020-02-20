@@ -4,20 +4,16 @@ class Game:
     def __init__(self):
         self.player = Player("Nathan")
         self.cpu = CpuPlayer("STUPID ROBOT")
-        self.die = Die()
-        self.first_player = True
-        self.second_player = False        
+        self.die = Die()    
     
     def show_roll(self):
         print(f"Roll: {self.die.roll()}")
     
-    def switch_players(self): 
-        if self.first_player:
-            self.first_player = False
-            self.second_player = True
-        elif self.second_player:
-            self.second_player = False
-            self.first_player = True
+    def declare_winner(self): 
+        if self.player.total_score > self.cpu.total_score:
+            print("human wins!!!")
+        else:
+            print("robot wins!!!")
 
     def round(self):
         first_player_move = True
@@ -43,8 +39,7 @@ class Game:
                     first_player_move = False
             elif first_player_move == False:
                 print((f'{self.cpu}, do you want to (r)oll or (h)old? '))
-                while self.cpu.round_score < 20:
-                    print("still under 20")
+                while self.cpu.round_score < 20 and first_player_move == False:
                     roll = self.die.roll()
                     print(f"Roll: {roll}")
                     if roll == 1:
@@ -63,6 +58,7 @@ class Game:
                     first_player_move = True
         else: 
             print("WE HAVE A WINNER!")
+            self.declare_winner()
 
             
         
