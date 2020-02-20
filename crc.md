@@ -15,14 +15,16 @@ Responsibilities
   - 'while' player continues to choose to (r)oll, roll die and add roll value into list
   - when player  chooses to (h)old, stop and total the values in the list
   - if player rolls 1, replace score value with 0
-- collect total score
+- collect and show round score
+- collect and show total score
 
 
 CpuPlayer
 Responsibilities
 - roll die 
 - holds until they roll a total of 20 points
-- collect total score
+- collect and show round score
+- collect and show total score
 
 Die
 Responsibilities
