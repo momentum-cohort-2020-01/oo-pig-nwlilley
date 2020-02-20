@@ -20,8 +20,9 @@ class Game:
             self.first_player = True
 
     def round(self):
+        first_player_move = True
         while self.player.total_score < 100 and self.cpu.total_score < 100:
-            if self.first_player:
+            if first_player_move == True:
                 choice = input(f'{self.player}, do you want to (r)oll or (h)old? ')
                 if choice == 'r':
                     roll = self.die.roll()
@@ -30,7 +31,7 @@ class Game:
                         self.player.round_score = 0
                         print('PIG')
                         self.player.show_round_score()
-                        self.switch_players()
+                        first_player_move = False
                     else:
                         self.player.round_score += roll
                         # self.show_roll()  
@@ -39,17 +40,18 @@ class Game:
                     self.player.total_score += self.player.round_score
                     self.player.show_total_score()
                     self.player.round_score = 0
-                    self.switch_players()
-            elif self.second_player:
-                choice = input(f'{self.cpu}, do you want to (r)oll or (h)old? ')
+                    first_player_move = False
+            elif first_player_move == False:
+                print((f'{self.cpu}, do you want to (r)oll or (h)old? '))
                 while self.cpu.round_score < 20:
+                    print("still under 20")
                     roll = self.die.roll()
                     print(f"Roll: {roll}")
                     if roll == 1:
                         self.cpu.round_score = 0
                         print('PIG')
                         self.cpu.show_round_score()
-                        self.switch_players()
+                        first_player_move = True
                     else:
                         self.cpu.round_score += roll
                         # self.show_roll()  
@@ -58,7 +60,7 @@ class Game:
                     self.cpu.total_score += self.cpu.round_score
                     self.cpu.show_total_score()
                     self.cpu.round_score = 0
-                    self.switch_players()
+                    first_player_move = True
         else: 
             print("WE HAVE A WINNER!")
 
@@ -78,21 +80,22 @@ class Player:
         print(f'Round Score: {self.round_score}\n')
 
     def show_total_score(self):
-        print(f"\nTotal Score: {self.total_score}\n")
+        print(f"\n{self.name} Score: {self.total_score}\n")
 
 class CpuPlayer:
     def __init__(self, name):
         self.name = name
         self.round_score = 0
         self.total_score = 0
+
     def __str__(self):
         return f'{self.name}'   
     
     def show_round_score(self):
-        print(f'Round Score: {self.round_score}')
+        print(f'\nRound Score: {self.round_score}')
     
     def show_total_score(self):
-        print(f"Total Score: {self.total_score}")
+        print(f"{self.name} Score: {self.total_score}")
 
     #hold score somehow
 
